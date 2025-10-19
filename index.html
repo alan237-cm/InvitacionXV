@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Invitación XV Años - Jennyfer Daiana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+  :root{
+    --bg:#000;
+    --text:#e0e0e0;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+    background: radial-gradient(circle at top, #0f0f10 0%, #000 100%);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow:hidden;
+  }
+
+  /* MARIPOSAS (FONDO) */
+  #mariposas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .butterfly {
+    position: absolute;
+    width: 80px;               /* valor por defecto (se ajusta desde JS) */
+    height: auto;
+    transform-origin: center;
+    animation-name: flyFloat, flap;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    will-change: transform, opacity, left, top;
+    filter: drop-shadow(0 6px 18px rgba(255,255,255,0.06));
+    transition: transform .2s ease;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes flyFloat {
+    0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1);    opacity:0.12; }
+    25%  { transform: translate3d(18px,-28px,0) rotate(8deg) scale(1.03); opacity:0.22; }
+    50%  { transform: translate3d(-22px,-48px,0) rotate(-6deg) scale(0.98); opacity:0.14; }
+    75%  { transform: translate3d(12px,-26px,0) rotate(10deg) scale(1.04); opacity:0.22; }
+    100% { transform: translate3d(0,0,0) rotate(0deg) scale(1);    opacity:0.12; }
+  }
+
+  @keyframes flap {
+    0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+    50%  { transform: translate3d(0,0,0) rotate(2deg) scale(0.98); }
+    100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+  }
+
+  /* CONTENIDO (delante de las mariposas) */
+  .page-wrap {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 28px 16px;
+    box-sizing: border-box;
+  }
+
+  .message {
+    font-size: 1.12rem;
+    text-align: center;
+    max-width: 640px;
+    margin-bottom: 18px;
+    color: #e8e8e8;
+    letter-spacing: 0.4px;
+    text-shadow: 0 0 14px rgba(255,255,255,0.04);
+  }
+
+  .envelope {
+    position: relative;
+    width: 360px;
+    height: 250px;
+    background: linear-gradient(145deg, #2f2f2f, #141414);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.7), 0 0 28px rgba(255,255,255,0.04);
+    cursor: pointer;
+    perspective: 1000px;
+    transition: transform 1s ease;
+  }
+
+  .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 52%;
+    background: linear-gradient(180deg, #cfcfcf, #9a9a9a);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top;
+    transition: transform 0.9s cubic-bezier(.2,.9,.2,1);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.5);
+  }
+
+  .letter {
+    position: absolute;
+    top: 30%;
+    left: 8%;
+    width: 84%;
+    height: 62%;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    transform: translateY(120px);
+    opacity: 0;
+    transition: transform 0.9s ease, opacity 0.9s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-weight: 700;
+  }
+
+  .envelope.open .flap {
+    transform: rotateX(180deg);
+  }
+
+  .envelope.open .letter {
+    transform: translateY(-30px);
+    opacity: 1;
+  }
+
+  .hint {
+    margin-top: 18px;
+    color: #d2d2d2;
+    font-size: 0.98rem;
+    text-align:center;
+    letter-spacing:0.4px;
+  }
+
+  /* responsive */
+  @media (max-width:720px){
+    .envelope{ width:300px; height:200px; }
+    .letter{ left:9%; width:82%; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- MARIPOSAS (fondo) -->
+  <div id="mariposas" aria-hidden="true"></div>
+
+  <!-- CONTENIDO -->
+  <div class="page-wrap">
+    <div class="message">
+      ✨ Te invito a vivir un día muy especial conmigo…<br>
+      lleno de magia, amor y alegría. 💖<br>
+      Para descubrirlo, abre el sobre ✨
+    </div>
+
+    <div class="envelope" id="envelope" role="button" aria-label="Abrir invitación">
+      <div class="flap"></div>
+      <div class="letter">💌 Invitación</div>
+    </div>
+
+    <div class="hint">Haz clic en el sobre para abrir tu invitación ✨</div>
+  </div>
+
+<script>
+  // Lógica del sobre
+  const envelope = document.getElementById('envelope');
+  envelope.addEventListener('click', () => {
+    envelope.classList.add('open');
+    setTimeout(() => {
+      window.location.href = 'invitacion.html';
+    }, 1300);
+  });
+
+  // Generar mariposas (imágenes) más grandes
+  (function spawnMariposas(){
+    const container = document.getElementById('mariposas');
+    const total = 22; // cantidad de mariposas
+    for (let i = 0; i < total; i++){
+      const img = document.createElement('img');
+      img.src = 'img/mariposa.png'; // <- asegúrate de tener esta imagen
+      img.alt = '';
+      img.className = 'butterfly';
+
+      // Tamaño: ahora más grande (48px -> 140px)
+      const size = 48 + Math.floor(Math.random() * 92); // entre 48 y 139
+      img.style.width = `${size}px`;
+
+      // Opacidad un poco más visible
+      const op = 0.12 + Math.random() * 0.45; // entre 0.12 y 0.57
+      img.style.opacity = op;
+
+      // Posición inicial
+      const y = Math.floor(Math.random() * 100);
+      const x = Math.floor(Math.random() * 100);
+      img.style.left = `${x}%`;
+      img.style.top = `${y}%`;
+
+      // Animación: duraciones más largas y con variación
+      const dur = 14 + Math.random() * 22; // 14s - 36s
+      const flapDur = 1.0 + Math.random() * 1.2; // 1s - 2.2s
+      const delay = Math.random() * 6;
+      img.style.animationDuration = `${dur}s, ${flapDur}s`;
+      img.style.animationDelay = `${delay}s, ${delay + Math.random()*0.8}s`;
+
+      // Aleatorizar dirección ligera (mirado a la izquierda/derecha)
+      const flip = Math.random() > 0.5 ? 'scaleX(1)' : 'scaleX(-1)';
+      img.style.transform = flip;
+
+      // Suavizar la entrada
+      img.style.transition = 'opacity 1s ease, transform .4s ease';
+
+      container.appendChild(img);
+    }
+
+    // Opcional: limpieza si se desea remover mariposas viejas (no necesaria aquí)
+  })();
+</script>
+
+</body>
+</html>

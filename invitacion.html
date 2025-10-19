@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Invitación XV Años - Jennyfer Daiana Gómez Chávez</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    :root{
+      --bg:#000;
+      --text:#e0e0e0;
+      --muted:#c8c8c8;
+      --panel-bg: rgba(255,255,255,0.07);
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ============ MARIPOSAS (FONDO) ============ */
+    #mariposas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .butterfly {
+      position: absolute;
+      width: 42px;
+      height: auto;
+      opacity: 0.12;
+      transform-origin: center;
+      animation-name: flyFloat, flap;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      will-change: transform, opacity, left, top;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.06));
+    }
+
+    @keyframes flyFloat {
+      0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1);    opacity:0.08; }
+      25%  { transform: translate3d(12px,-18px,0) rotate(8deg) scale(1.02); opacity:0.14; }
+      50%  { transform: translate3d(-14px,-36px,0) rotate(-6deg) scale(0.98); opacity:0.10; }
+      75%  { transform: translate3d(8px,-18px,0) rotate(10deg) scale(1.03); opacity:0.14; }
+      100% { transform: translate3d(0,0,0) rotate(0deg) scale(1);    opacity:0.08; }
+    }
+
+    @keyframes flap {
+      0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+      50%  { transform: translate3d(0,0,0) rotate(2deg) scale(0.98); }
+      100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+    }
+
+    /* ============ CONTENIDO ============ */
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    h1{
+      font-size: clamp(2em,5vw,3em);
+      margin-top: 30px;
+      margin-bottom:10px;
+      color: #c0c0c0;
+      text-align:center;
+      text-shadow: 0 0 18px #d9d9d9, 0 0 36px #9ea8b3;
+      letter-spacing:2px;
+    }
+
+    h2{
+      font-size: clamp(1.1em,2.6vw,1.6em);
+      color: var(--muted);
+      text-align:center;
+      margin-top:0;
+      margin-bottom:18px;
+      text-shadow:0 0 10px rgba(157,169,185,0.6);
+    }
+
+    .countdown {
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin: 18px auto 28px;
+      width: fit-content;
+      padding: 12px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 0 30px rgba(255,255,255,0.04), inset 0 0 8px rgba(255,255,255,0.02);
+    }
+
+    .time-box{
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border-radius: 12px;
+      padding: 12px 18px;
+      min-width:92px;
+      text-align:center;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 0 12px rgba(255,255,255,0.03), inset 0 0 6px rgba(255,255,255,0.02);
+    }
+    .time-box:hover{ transform: translateY(-6px) scale(1.03); box-shadow: 0 0 22px rgba(255,255,255,0.09), inset 0 0 10px rgba(255,255,255,0.03); }
+
+    .time-box span{
+      display:block;
+      font-size: clamp(1.6em,4vw,2.6em);
+      color:#fff;
+      font-weight:600;
+      text-shadow:0 0 12px rgba(255,255,255,0.14);
+      letter-spacing:1.5px;
+    }
+    .time-box p{
+      margin:6px 0 0;
+      font-size:0.9rem;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .section{
+      margin: 30px 2%;
+      background: var(--panel-bg);
+      padding: 26px;
+      border-radius: 18px;
+      box-shadow: 0 0 30px rgba(200,200,200,0.08);
+      position: relative;
+    }
+
+    .familia{
+      font-size: clamp(1em,3.5vw,1.15em);
+      line-height:1.7;
+      color:#dcdcdc;
+      text-align:center;
+    }
+
+    a{
+      color: #d1d1d1;
+      text-decoration:none;
+      font-weight:600;
+      border-bottom:1px dotted rgba(200,200,200,0.2);
+    }
+    a:hover{ color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.12); }
+
+    /* 🎵 Estilo del reproductor */
+    .audio-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .audio-container audio {
+      width: 100%;
+      max-width: 360px;
+      outline: none;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 18px rgba(255,255,255,0.12),
+                  inset 0 0 10px rgba(255,255,255,0.05);
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.08));
+    }
+
+    audio::-webkit-media-controls-panel {
+      background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border-radius: 14px;
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button {
+      filter: invert(100%) brightness(1.4);
+    }
+
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+      color: #f0f0f0;
+    }
+
+    .song-title {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #c8c8c8;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.1);
+    }
+
+    /* ✨ Botón Confirmar Asistencia */
+    .confirmar {
+      display: inline-block;
+      margin: 20px auto 60px;
+      padding: 14px 34px;
+      font-size: 1rem;
+      color: #f5f5f5;
+      background: linear-gradient(145deg, #bfbfbf, #8e8e8e);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
+      box-shadow: 0 0 18px rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .confirmar:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, #e0e0e0, #a5a5a5);
+      box-shadow: 0 0 30px rgba(255,255,255,0.35);
+      color: #000;
+    }
+
+    footer{
+      margin:30px 0 60px;
+      color:#bbb;
+      text-align:center;
+      font-size:0.95rem;
+    }
+
+    @media (max-width:720px){
+      .time-box{ min-width:72px; padding:10px 12px; }
+      .butterfly{ width:28px; }
+      .section{ margin:20px 4%; padding:18px; }
+    }
+</style>
+</head>
+<body>
+
+  <div id="mariposas" aria-hidden="true"></div>
+
+  <div class="page">
+    <h1>Mis XV Años</h1>
+    <h2>Jennyfer Daiana Gómez Chávez</h2>
+
+    <div class="countdown" aria-live="polite">
+      <div class="time-box"><span id="days">00</span><p>Días</p></div>
+      <div class="time-box"><span id="hours">00</span><p>Horas</p></div>
+      <div class="time-box"><span id="minutes">00</span><p>Minutos</p></div>
+      <div class="time-box"><span id="seconds">00</span><p>Segundos</p></div>
+    </div>
+
+    <div class="section">
+      <p class="familia">
+        Con gran emoción y alegría, tengo el honor de invitarte a celebrar conmigo este momento tan especial.<br><br>
+        🌙✨ Quiero agradecer profundamente a mi familia, que ha estado conmigo en cada paso de mi vida, 
+        y a mis queridos padrinos, que con su amor y apoyo hacen de este sueño una hermosa realidad. 
+        Gracias por ser mi luz entre las estrellas. 💫
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Mis Papás</h2>
+      <p class="familia">Sergio Gómez Martínez<br>Michel Chávez Mendoza</p>
+
+      <h2 style="margin-top:20px;">Mis Padrinos</h2>
+      <p class="familia">Raúl García Hernández<br>Myrna Chávez Mendoza</p>
+    </div>
+
+    <div class="section">
+      <h2>📍 Lugar del Evento</h2>
+      <p class="familia">
+        Te espero el <strong>19 de diciembre</strong> a las <strong>5:30 PM</strong> para celebrar juntos.<br>
+        <a href="https://maps.app.goo.gl/JLgvQAhbAVFkjsum7?g_st=iw" target="_blank" rel="noopener">Ver ubicación en Google Maps</a>
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🎵 Música Especial</h2>
+      <p class="familia">Disfruta esta canción especial durante la celebración 💫</p>
+
+      <div class="audio-container">
+        <audio controls>
+          <source src="img/Just Give Me a Reason.mp3" type="audio/mpeg">
+          Tu navegador no soporta la reproducción de audio.
+        </audio>
+        <p class="song-title">🎶 Just Give Me a Reason – P!nk ft. Nate Ruess</p>
+      </div>
+    </div>
+<div style="text-align:center;">
+  <a href="asistencia.html" class="confirmar">💌 Click aquí para confirmar asistencia</a>
+</div>
+
+
+    <footer>
+      Con cariño, Jennyfer 🌙<br>
+      “Las estrellas y la luna serán testigos de esta noche mágica.”
+    </footer>
+  </div>
+
+<script>
+(function initCountdown(){
+  const target = new Date("Dec 19, 2025 17:30:00").getTime();
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0){
+      document.querySelector('.countdown').innerHTML = '¡Ya comenzó la celebración! ✨';
+      clearInterval(interval);
+      return;
+    }
+    const day = 1000*60*60*24;
+    const hour = 1000*60*60;
+    const minute = 1000*60;
+    const days = Math.floor(diff / day);
+    const hours = Math.floor((diff % day) / hour);
+    const minutes = Math.floor((diff % hour) / minute);
+    const seconds = Math.floor((diff % minute) / 1000);
+    document.getElementById('days').textContent = String(days).padStart(2,'0');
+    document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+  }
+  tick();
+  const interval = setInterval(tick, 1000);
+})();
+
+(function spawnMariposas(){
+  const container = document.getElementById('mariposas');
+  const total = 25;
+  for (let i = 0; i < total; i++){
+    const img = document.createElement('img');
+    img.src = 'img/mariposa.png';
+    img.alt = '';
+    img.className = 'butterfly';
+    const y = Math.floor(((Math.random() + Math.random()) / 2) * 100);
+    const x = Math.floor(Math.random() * 100);
+    const size = 28 + Math.floor(Math.random() * 40);
+    img.style.width = `${size}px`;
+    const op = 0.06 + Math.random() * 0.16;
+    img.style.opacity = op;
+    img.style.left = `${x}%`;
+    img.style.top = `${y}%`;
+    const dur = 10 + Math.random() * 18;
+    const delay = Math.random() * 6;
+    img.style.animationDuration = `${dur}s, ${Math.max(1.2, (0.9 + Math.random()*0.6))}s`; 
+    img.style.animationDelay = `${delay}s, ${delay + Math.random()*0.8}s`;
+    container.appendChild(img);
+  }
+})();
+</script>
+
+</body>
+</html>
